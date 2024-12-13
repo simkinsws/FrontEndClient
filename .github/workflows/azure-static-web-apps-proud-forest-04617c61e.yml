@@ -50,7 +50,7 @@ jobs:
           app_location: "/" # Adjust based on your app's root directory
           api_location: "api" # Specify if you have API; otherwise leave empty
           output_location: "build" # Adjust if your build outputs to a different directory
-
+          action: "upload"
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -60,4 +60,4 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROUD_FOREST_04617C61E }}
-          action:
+          action: "close"
