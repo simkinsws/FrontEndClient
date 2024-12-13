@@ -17,13 +17,13 @@ const ProtectedRoute = inject("authStore")(
 
     useEffect(() => {
       const fetchUserRole = async () => {
-        if (authStore.isAuthenticated) {
+        if (authStore && authStore?.isAuthenticated) {
           // Directly use MobX state for authentication status
           try {
             const response = await apiInstance.get("/api/users/userRole");
             console.log(response);
             // If the API returns a successful response, compare the role
-            if (response && allowedRoles.includes(response)) {
+            if (response && allowedRoles?.includes(response)) {
               setHasAccess(true); // User has the correct role
             } else {
               setHasAccess(false); // User doesn't have access
@@ -47,7 +47,7 @@ const ProtectedRoute = inject("authStore")(
       return <div>Loading...</div>;
     }
 
-    if (!authStore.isAuthenticated || !hasAccess) {
+    if (!authStore?.isAuthenticated || !hasAccess) {
       // If no token or access is denied, redirect to login or unauthorized
       return <Navigate to={"/login"} replace />;
     }
