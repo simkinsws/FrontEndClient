@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { inject, observer } from "mobx-react"; // Import inject and observer
 import apiInstance from "../helpers/apiInstance"; // Adjust the path if needed
-import { useNavigate } from "react-router-dom"; // For navigation
+import { useNavigate } from "react-router-dom";
 
 const Login = inject("authStore")(
   observer(({ authStore }) => {
