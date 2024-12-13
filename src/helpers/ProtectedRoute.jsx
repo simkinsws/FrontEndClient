@@ -41,7 +41,7 @@ const ProtectedRoute = inject("authStore")(
       };
 
       fetchUserRole();
-    }, [authStore.isAuthenticated, allowedRoles]); // Depend on token and allowedRoles
+    }, [allowedRoles]); // Depend on token and allowedRoles
 
     if (loading) {
       return <div>Loading...</div>;
