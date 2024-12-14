@@ -7,6 +7,7 @@ import UserPanel from "./pages/user/UserPanel";
 import AdminPanel from "./pages/AdminPanel";
 import ProtectedRoute from "./helpers/ProtectedRoute";
 import apiInstance from "./helpers/apiInstance";
+import ResetPassword from "./pages/resetPassword/ResetPassword";
 // Define AppRoutes as an observer component
 const AppRoutes = observer(() => {
   useEffect(() => {
@@ -19,6 +20,11 @@ const AppRoutes = observer(() => {
   return (
     <Routes>
       {/* Public Route */}
+      <Route
+        path="/reset-password"
+        element={<ResetPassword></ResetPassword>}
+      ></Route>
+
       <Route
         path="/login"
         element={
