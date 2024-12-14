@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
 import apiInstance from "../helpers/apiInstance";
+
 class AuthStore {
-  user = null; // Stores user details
   token = null; // Stores the authentication token
   isAuthenticated = false; // Tracks if user is authenticated
-
+  userRole = "";
   constructor() {
     makeAutoObservable(this); // Makes state observable and actions reactive
     const token = localStorage.getItem("accessToken");
@@ -23,12 +23,15 @@ class AuthStore {
     localStorage.setItem("accessToken", token); // Store token in localStorage
   }
 
+  setUserRole(userRole) {
+    this.userRole = userRole;
+  }
+
   // Log out the user
   logout() {
-    this.user = null;
     this.token = null;
     this.isAuthenticated = false;
-    localStorage.removeItem("accessToken"); // Remove token from localStorage
+    localStorage.clear(); // Remove token from localStorage
   }
 
   // Check if the user is authenticated based on token

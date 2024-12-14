@@ -1,10 +1,12 @@
+@import "../../assests/_variables.scss";
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background-color: $primary-light-text;
 
   .title {
     font-size: 2rem;
@@ -16,7 +18,7 @@
     max-width: 375px;
     padding: 1rem;
     border-radius: 8px;
-    background-color: #fff;
+    background-color: $primary-white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -46,7 +48,7 @@
     }
 
     .error {
-      color: red;
+      color: $primray-error;
       margin-bottom: 1rem;
       text-align: center;
       margin-top: 0px;
@@ -57,8 +59,8 @@
       font-size: 20px;
       width: 300px;
       height: 50px;
-      color: #fff;
-      background-color: #007bff;
+      color: $primary-white;
+      background-color: $primary-dark-background;
       border: none;
       border-radius: 10px;
       cursor: pointer;

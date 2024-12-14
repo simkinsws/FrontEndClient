@@ -21,7 +21,7 @@ const ProtectedRoute = inject("authStore")(
           // Directly use MobX state for authentication status
           try {
             const response = await apiInstance.get("/api/users/userRole");
-            console.log(response);
+            authStore.setUserRole(response);
             // If the API returns a successful response, compare the role
             if (response && allowedRoles?.includes(response)) {
               setHasAccess(true); // User has the correct role

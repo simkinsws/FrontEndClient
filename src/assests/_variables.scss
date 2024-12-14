@@ -1,0 +1,25 @@
+// Primary Colors
+$primary-dark-blue: #000428; // Dark blue for gradient start
+$primary-light-blue: #004e92; // Light blue for gradient end
+$primary-white: #ffffff; // White for text and accents
+$primary-golden-yellow: #ffd700; // Golden yellow for active items
+$primray-error: rgb(255, 0, 0);
+$accent-hover-bg: rgba(255, 255, 255, 0.1); // Light hover background
+$primary-dark-background: #181818; // Dark background for the navbar
+$primary-light-text: #e0e0e0; // Light text color for good contrast
+$primary-darker-text: #b0b0b0; // Slightly darker text for general items
+$primary-dark-gray: #333333; // For text, icons, etc.
+$accent-cyan: #00bcd4; // Soft cyan accent for hover and active
+$accent-dark-gray: #444444; // Slightly darker gray for inactive items
+$active-bg-dark: #333333; // Darker background for active items
+$transition-default: 0.3s ease-in-out; // Smooth transitions
+
+// Transition
+$transition-default: 0.3s ease-in-out; // Default transition for smooth effects
+
+// Gradients
+$gradient-mobile-menu: linear-gradient(
+  135deg,
+  $primary-dark-blue,
+  $primary-light-blue
+); // Mobile menu background gradient
