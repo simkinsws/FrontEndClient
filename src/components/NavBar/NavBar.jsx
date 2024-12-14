@@ -147,9 +147,14 @@ const NavBar = observer(() => {
       </div>
 
       <div className="navbar-mobile-container">
-        <button className="hamburger" onClick={toggleMobileMenu}>
-          <FaBars></FaBars>
-        </button>
+        <div className="menu-buttons">
+          <button className="hamburger" onClick={toggleMobileMenu}>
+            <FaBars></FaBars>
+          </button>
+          <button className="icon-style logout" onClick={logout}>
+            <BiLogOut></BiLogOut>
+          </button>
+        </div>
         <div
           className={`navbar-mobile-items ${
             isMobileMenuOpen ? "menu-open" : "menu-closed"

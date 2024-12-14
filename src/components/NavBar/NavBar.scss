@@ -62,12 +62,21 @@
     display: flex;
     justify-content: end;
 
-    .hamburger {
-      font-size: 30px;
-      background: unset;
-      border: 0;
-      padding: 10px;
-      color: $primary-light-text; /* Light color for hamburger */
+    .menu-buttons {
+      width: 100%;
+      justify-content: space-between;
+      display: flex;
+      .hamburger,
+      .logout {
+        font-size: 30px;
+        background: unset;
+        border: 0;
+        padding: 10px;
+        color: $primary-light-text; /* Light color for hamburger */
+      }
+      .logout {
+        font-size: 35px;
+      }
     }
 
     .navbar-mobile-items {
@@ -96,7 +105,7 @@
 
       .close-menu {
         font-size: 30px;
-        align-self: flex-end;
+        align-self: flex-start;
         border: 0;
         padding: 10px;
         background: unset;
