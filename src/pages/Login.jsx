@@ -4,7 +4,7 @@ import apiInstance from "../helpers/apiInstance"; // Adjust the path if needed
 import { useNavigate } from "react-router-dom"; // For navigation
 import "./styles/Login.scss";
 import authStore from "../store/authStore";
-import ResetPassword from "./ResetPassword/ResetPassword";
+import ResetPassword from "./resetPassword/ResetPassword";
 
 const Login = observer(() => {
   const [email, setEmail] = useState("");
