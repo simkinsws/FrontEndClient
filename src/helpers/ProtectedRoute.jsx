@@ -1,62 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { inject, observer } from "mobx-react"; // Import inject and observer
-import apiInstance from "../helpers/apiInstance"; // Adjust the path if needed
-import authStore from "../store/authStore"; // Import authStore
+import { observer } from "mobx-react";
+import authStore from "../store/authStore";
 
-const ProtectedRoute = inject("authStore")(
-  observer(({ allowedRoles = [] }) => {
-    const [loading, setLoading] = useState(true);
-    const [hasAccess, setHasAccess] = useState(null); // Will hold true/false based on role check
+const ProtectedRoute = observer(({ allowedRoles = [], children }) => {
+  // Check if authentication data is still being fetched
+  if (
+    authStore?.userRole === undefined ||
+    authStore?.userRole === null ||
+    authStore?.userRole === ""
+  ) {
+    // Optionally, render a loading indicator
+    return <div>Loading...</div>;
+  }
 
-    useEffect(() => {
-      if (localStorage.getItem("accessToken")) {
-        apiInstance.setToken(localStorage.getItem("accessToken"));
-      }
-    }, []);
+  if (!authStore?.isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
-    useEffect(() => {
-      const fetchUserRole = async () => {
-        if (authStore && authStore?.isAuthenticated) {
-          // Directly use MobX state for authentication status
-          try {
-            const response = await apiInstance.get("/api/users/userRole");
-            authStore.setUserRole(response);
-            // If the API returns a successful response, compare the role
-            if (response && allowedRoles?.includes(response)) {
-              setHasAccess(true); // User has the correct role
-            } else {
-              setHasAccess(false); // User doesn't have access
-            }
-          } catch (error) {
-            console.log("Error fetching user role:", error);
-            setHasAccess(false); // In case of an error, deny access
-          } finally {
-            setLoading(false);
-          }
-        } else {
-          setHasAccess(false); // No token means no access
-          setLoading(false);
-        }
-      };
+  if (allowedRoles.length > 0 && !allowedRoles.includes(authStore?.userRole)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
 
-      fetchUserRole();
-    }, [allowedRoles]); // Depend on token and allowedRoles
-
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-
-    if (!authStore?.isAuthenticated || !hasAccess) {
-      // If no token or access is denied, redirect to login or unauthorized
-      return <Navigate to={"/login"} replace />;
-    }
-
-    // If user has access, continue to the protected route
-    apiInstance.setToken(authStore.token);
-
-    return <Outlet />;
-  })
-);
+  // If the route has children, render them. Otherwise, render the nested routes using Outlet
+  return children ? children : <Outlet />;
+});
 
 export default ProtectedRoute;

@@ -48,7 +48,7 @@
 
     &.active {
       color: $primary-white; /* White for active text */
-      background-color: $active-bg-dark; /* Dark background for active item */
+      background-color: $primary-dark-gray; /* Dark background for active item */
       padding: 5px 10px; /* Add some padding for the active item */
       border-radius: 5px; /* Rounded corners */
     }
@@ -134,7 +134,7 @@
 
           &.active {
             color: $primary-white; /* White text for active item */
-            background-color: $active-bg-dark; /* Dark background for active item */
+            background-color: $primary-dark-gray; /* Dark background for active item */
           }
         }
       }

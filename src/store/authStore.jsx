@@ -17,10 +17,13 @@ class AuthStore {
   }
 
   // Set user and token when logging in
-  login(token) {
-    this.token = token;
+  login(response) {
     this.isAuthenticated = true;
-    localStorage.setItem("accessToken", token); // Store token in localStorage
+    localStorage.setItem("accessToken", response.accessToken);
+    localStorage.setItem("refreshToken", response.refreshToken);
+    const expiresAt = Date.now() + response.expiresIn * 1000;
+
+    localStorage.setItem("expiresAt", expiresAt);
   }
 
   setUserRole(userRole) {

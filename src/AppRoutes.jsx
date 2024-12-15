@@ -1,55 +1,73 @@
 import React, { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { observer } from "mobx-react"; // Import observer and inject from mobx-react
 import authStore from "./store/authStore"; // Import the store
-import Login from "./pages/Login";
-import UserPanel from "./pages/user/UserPanel";
+import UserPanel from "./pages/user/UserPanel/UserPanel";
 import AdminPanel from "./pages/AdminPanel";
 import ProtectedRoute from "./helpers/ProtectedRoute";
+import CreatePost from "./pages/user/CreatePost/CreatePost";
 import apiInstance from "./helpers/apiInstance";
-import ResetPassword from "./pages/resetPassword/ResetPassword";
+import Login from "./pages/Login";
+import UnAuthorized from "./pages/UnAuthorized/UnAuthorized";
 // Define AppRoutes as an observer component
 const AppRoutes = observer(() => {
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      apiInstance.setToken(token);
-    }
+    const fetchUserRole = async () => {
+      if (authStore?.isAuthenticated && !authStore?.userRole) {
+        try {
+          const roleResponse = await apiInstance.get("/api/users/userRole");
+          authStore?.setUserRole(roleResponse);
+          console.log("User role set to:", authStore?.userRole); // Debug log
+        } catch (error) {
+          console.error("Error fetching user role:", error);
+        }
+      }
+    };
+    fetchUserRole();
   }, []);
 
   return (
     <Routes>
-      {/* Public Route */}
-      <Route
-        path="/reset-password"
-        element={<ResetPassword></ResetPassword>}
-      ></Route>
+      <Route path="/login" element={<Login />} />
 
       <Route
-        path="/login"
+        path="/admin"
         element={
-          authStore?.isAuthenticated ? (
-            <Navigate
-              to={authStore?.userRole === "Admin" ? "/admin" : "/user"}
-              replace
-            />
-          ) : (
-            <Login />
-          )
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminPanel />
+          </ProtectedRoute>
         }
       />
 
-      {/* Protected Routes */}
       <Route
-        path="/admin"
-        element={<ProtectedRoute allowedRoles={["Admin"]} />}
-      >
-        <Route index element={<AdminPanel />} />
-      </Route>
+        path="/admin/new-ticket"
+        exact="true"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <CreatePost />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/user" element={<ProtectedRoute allowedRoles={["User"]} />}>
-        <Route index element={<UserPanel />} />
-      </Route>
+      <Route
+        path="/user"
+        element={
+          <ProtectedRoute allowedRoles={["User"]}>
+            <UserPanel />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/user/new-ticket"
+        exact="true"
+        element={
+          <ProtectedRoute allowedRoles={["User"]}>
+            <CreatePost />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route path="/unauthorized" element={<UnAuthorized />} />
 
       {/* Fallback for 404 */}
       <Route path="*" element={<div>Page Not Found</div>} />

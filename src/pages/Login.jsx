@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react"; // Import inject and observer
 import apiInstance from "../helpers/apiInstance"; // Adjust the path if needed
 import { useNavigate } from "react-router-dom"; // For navigation
 import "./styles/Login.scss";
 import authStore from "../store/authStore";
-import ResetPassword from "./resetPassword/ResetPassword";
+import ResetPassword from "./ResetPassword/ResetPassword";
 
 const Login = observer(() => {
   const [email, setEmail] = useState("");
@@ -18,28 +18,33 @@ const Login = observer(() => {
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
+  useEffect(() => {
+    if (authStore?.isAuthenticated) {
+      const redirectPath = authStore?.userRole === "Admin" ? "/admin" : "/user";
+      navigate(redirectPath, { replace: true });
+    }
+  }, [navigate]);
+
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-    setError(""); // Clear any previous errors
+    e.preventDefault();
+    setError("");
 
     try {
       setIsLoading(true);
       const response = await apiInstance.post("/login", { email, password });
       if (response.accessToken) {
-        // Save token to local storage (or session storage if preferred)
-        localStorage.setItem("accessToken", response.accessToken);
-        localStorage.setItem("refreshToken", response.refreshToken);
-        const expiresAt = Date.now() + response.expiresIn * 1000;
-
-        localStorage.setItem("expiresAt", expiresAt);
         apiInstance.setToken(response.accessToken);
-        authStore.login(response.accessToken); // Update authStore using the injected store
+        authStore.login(response);
+
+        const roleResponse = await apiInstance.get("/api/users/userRole");
+        authStore.setUserRole(roleResponse);
         setIsLoading(false);
-        // Redirect to dashboard or another protected route
-        navigate("/");
+
+        // Redirect based on userRole
+        navigate(roleResponse === "Admin" ? "/admin" : "/user");
       } else {
         setIsLoading(false);
-        setError("Login failed. Please BLAH your credentials.");
+        setError("Login failed. Please check your credentials.");
       }
     } catch (err) {
       setIsLoading(false);
@@ -78,13 +83,13 @@ const Login = observer(() => {
           />
         </div>
         {error && <p className="error">{error}</p>}
+        <button type="submit" className="button">
+          {isLoading ? "Loading..." : "Login"}
+        </button>
         <button className="forgot-password" onClick={handleOpenModal}>
           Forgot Password?
         </button>
         <ResetPassword show={showModal} handleClose={handleCloseModal} />
-        <button type="submit" className="button">
-          {isLoading ? "Loading..." : "Login"}
-        </button>
       </form>
     </div>
   );

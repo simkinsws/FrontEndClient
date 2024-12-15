@@ -7,10 +7,12 @@ const ResetPassword = ({ show, handleClose }) => {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     setError(null); // Clear previous errors
+    setSuccess(null);
     try {
       setIsLoading(true);
       const response = await apiInstance.post("/reset-password", {
@@ -20,7 +22,9 @@ const ResetPassword = ({ show, handleClose }) => {
       });
       if (response.message === "Password reset successful.") {
         setIsLoading(false);
-        handleClose();
+        setEmail("");
+        setNewPassword("");
+        setSuccess(true);
       }
     } catch (err) {
       setIsLoading(false);
@@ -55,11 +59,16 @@ const ResetPassword = ({ show, handleClose }) => {
               onChange={(e) => setNewPassword(e.target.value)}
             />
           </Form.Group>
-          {error && (
+          {error && !success && (
             <div className="error">
               {typeof error === "object"
                 ? Object.values(error).flat().join(", ")
                 : error}
+            </div>
+          )}
+          {success && (
+            <div className="success-msg">
+              Your password has been succesfully changed please close and login.
             </div>
           )}
         </Form>

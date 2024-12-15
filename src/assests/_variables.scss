@@ -2,7 +2,6 @@
 $primary-dark-blue: #000428; // Dark blue for gradient start
 $primary-light-blue: #004e92; // Light blue for gradient end
 $primary-white: #ffffff; // White for text and accents
-$primary-golden-yellow: #ffd700; // Golden yellow for active items
 $primray-error: rgb(255, 0, 0);
 $accent-hover-bg: rgba(255, 255, 255, 0.1); // Light hover background
 $primary-dark-background: #181818; // Dark background for the navbar
@@ -11,9 +10,10 @@ $primary-darker-text: #b0b0b0; // Slightly darker text for general items
 $primary-dark-gray: #333333; // For text, icons, etc.
 $accent-cyan: #00bcd4; // Soft cyan accent for hover and active
 $accent-dark-gray: #444444; // Slightly darker gray for inactive items
-$active-bg-dark: #333333; // Darker background for active items
 $transition-default: 0.3s ease-in-out; // Smooth transitions
 $error-background: #fbe9e9;
+$succes-border: #00d44acc;
+$success-bg: rgba(202, 255, 221, 0.8);
 
 // Transition
 $transition-default: 0.3s ease-in-out; // Default transition for smooth effects
