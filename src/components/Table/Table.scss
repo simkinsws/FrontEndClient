@@ -1,0 +1,70 @@
+@import "../../assests/_variables.scss";
+
+.table-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4caf50;
+      color: white;
+      font-size: 16px;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    // Responsive styles
+    @media screen and (max-width: 768px) {
+      thead {
+        display: none;
+      }
+
+      tr {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      td {
+        display: block;
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+
+        &::before {
+          content: attr(data-label);
+          position: absolute;
+          left: 10px;
+          top: 12px;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+      }
+
+      td:nth-of-type(odd) {
+        background-color: #f9f9f9;
+      }
+    }
+  }
+}

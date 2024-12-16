@@ -1,7 +1,29 @@
 import React, { useState, useEffect } from "react";
 import apiInstance from "../../../helpers/apiInstance";
+import "./styles/CreatePost.scss";
+import { FaCloudUploadAlt, FaTimes } from "react-icons/fa";
+import { observer } from "mobx-react-lite";
+import authStore from "../../../store/authStore";
 
-const CreatePost = () => {
+const CustomFileInput = ({ onFileChange }) => {
+  return (
+    <div className="custom-file-input">
+      <input
+        type="file"
+        id="fileInput"
+        accept="image/*"
+        className="file-input"
+        onChange={onFileChange}
+      />
+      <label htmlFor="fileInput" className="file-label">
+        <FaCloudUploadAlt className="upload-icon" />
+        <span>Upload Image</span>
+      </label>
+    </div>
+  );
+};
+
+const CreatePost = observer(() => {
   const [formData, setFormData] = useState({
     branchName: "",
     contactName: "",
@@ -87,11 +109,12 @@ const CreatePost = () => {
 
   return (
     <div className="create-post-container">
-      <h1>Create a New Post</h1>
       <form onSubmit={handleSubmit}>
+        <h1>Create a New Ticket</h1>
         <div className="form-group">
           <label htmlFor="branchName">Branch Name</label>
           <input
+            className="form-control"
             type="text"
             id="branchName"
             name="branchName"
@@ -103,6 +126,7 @@ const CreatePost = () => {
         <div className="form-group">
           <label htmlFor="contactName">Contact Name</label>
           <input
+            className="form-control"
             type="text"
             id="contactName"
             name="contactName"
@@ -114,6 +138,7 @@ const CreatePost = () => {
         <div className="form-group">
           <label htmlFor="phoneNumber">Phone Number</label>
           <input
+            className="form-control"
             type="text"
             id="phoneNumber"
             name="phoneNumber"
@@ -125,6 +150,7 @@ const CreatePost = () => {
         <div className="form-group">
           <label htmlFor="description">Description</label>
           <textarea
+            className="form-control"
             id="description"
             name="description"
             value={formData.description}
@@ -132,34 +158,33 @@ const CreatePost = () => {
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="image">Upload Image</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-        </div>
+        {authStore?.userRole === "Admin" && (
+          <div className="form-group">
+            <CustomFileInput onFileChange={handleImageChange} />
+          </div>
+        )}
         {formData.image && (
           <div className="image-preview">
             <p>Image Preview:</p>
-            <img
-              src={formData.image}
-              alt="Preview"
-              style={{ maxWidth: "200px" }}
-            />
+            <img src={formData.image} alt="Preview" />
+            <button
+              className="remove-prev-image"
+              onClick={() =>
+                setFormData((prevData) => ({ ...prevData, image: null }))
+              }
+            >
+              <FaTimes></FaTimes>
+            </button>
           </div>
         )}
         {error && <p className="error-message">{error}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Create Post"}
+          {isSubmitting ? "Submitting..." : "Create Ticket"}
         </button>
       </form>
     </div>
   );
-};
+});
 
 export default CreatePost;
