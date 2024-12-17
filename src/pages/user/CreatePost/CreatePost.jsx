@@ -79,7 +79,8 @@ const CreatePost = observer(() => {
       contactName,
       phoneNumber,
       description,
-      imageBase64: image?.split(",")[1], // Remove metadata prefix for Base64
+      imageBase64: image?.split(",")[1],
+      imageMimeType: image?.split(",")[0],
     };
 
     try {

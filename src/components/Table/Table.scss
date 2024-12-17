@@ -1,69 +1,36 @@
 @import "../../assests/_variables.scss";
 
 .table-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-
-  .responsive-table {
+  max-width: 95%;
+  margin: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  @media screen and (max-width: 992px) {
+    max-width: 100%;
+  }
+  table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-
     th,
     td {
-      padding: 12px 15px;
+      white-space: break-spaces;
+      vertical-align: top;
       text-align: left;
-      border: 1px solid #ddd;
-    }
-
-    th {
-      background-color: #4caf50;
-      color: white;
+      padding: 8px;
       font-size: 16px;
+      border: 1px solid $primary-dark-gray;
     }
+  }
 
-    td {
-      background-color: #f9f9f9;
-    }
+  @media (max-width: 992px) {
+    table {
+      min-width: 1000px;
 
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-
-    tr:hover {
-      background-color: #ddd;
-    }
-
-    // Responsive styles
-    @media screen and (max-width: 768px) {
-      thead {
-        display: none;
-      }
-
-      tr {
-        display: block;
-        margin-bottom: 10px;
-      }
-
+      th,
       td {
-        display: block;
-        text-align: right;
-        position: relative;
-        padding-left: 50%;
-
-        &::before {
-          content: attr(data-label);
-          position: absolute;
-          left: 10px;
-          top: 12px;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
-      }
-
-      td:nth-of-type(odd) {
-        background-color: #f9f9f9;
+        padding: 10px;
+        font-size: 14px;
       }
     }
   }
