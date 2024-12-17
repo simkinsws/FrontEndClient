@@ -83,7 +83,7 @@ const Table = observer(({ data, headers }) => {
                   {headers[key]?.label}
                 </th>
               ))}
-              {isAdmin && <th style={{ width: "15%" }}>Actions</th>}
+              {isAdmin && <th style={{ width: "20%" }}>Actions</th>}
             </tr>
           </thead>
           <tbody>
@@ -94,7 +94,7 @@ const Table = observer(({ data, headers }) => {
                     {key === "imageData" ? (
                       row?.imageData ? (
                         <img
-                          src={row?.imageData}
+                          src={`${row?.imageMimeType},${row?.imageData}`}
                           alt="Row Visual"
                           onClick={() => handleImageClick(row?.imageData)}
                         />
