@@ -11,7 +11,12 @@ const AdminPanel = observer(() => {
       try {
         const response = await apiInstance.get("/api/posts/mine");
         console.log(response);
-        setData(response);
+        const sortedData = response?.sort((a, b) => {
+          return (
+            new Date(b?.createdAt).getTime() - new Date(a?.createdAt).getTime()
+          );
+        });
+        setData(sortedData);
       } catch (e) {
         console.log("cannot fetch user tickets", e);
       }
