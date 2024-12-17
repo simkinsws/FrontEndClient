@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
-import authStore from "../../store/authStore"; // Adjust the import path as needed
+import authStore from "../../store/authStore";
 import "./Table.scss";
 import { FaTimesCircle } from "react-icons/fa";
 
@@ -38,7 +38,7 @@ const Table = observer(({ data, headers }) => {
 
   const handleFilter = (searchTerm) => {
     setFilterText(searchTerm);
-    setCurrentPage(1); // Reset to the first page on filter
+    setCurrentPage(1);
   };
 
   const goToNextPage = () =>
