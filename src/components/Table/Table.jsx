@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import authStore from "../../store/authStore"; // Adjust the import path as needed
 import "./Table.scss";
+import { FaTimesCircle } from "react-icons/fa";
 
 const Table = observer(({ data, headers }) => {
   const [modalImage, setModalImage] = useState(null);
@@ -16,7 +17,7 @@ const Table = observer(({ data, headers }) => {
     columns.some(
       (key) =>
         key !== "imageData" &&
-        row[key]?.toString().toLowerCase().includes(filterText.toLowerCase())
+        row[key]?.toString()?.toLowerCase()?.includes(filterText?.toLowerCase())
     )
   );
 
@@ -58,7 +59,14 @@ const Table = observer(({ data, headers }) => {
     <div className="table-container">
       {/* Header with Filter */}
       <header className="table-header">
+        {filterText?.length > 0 && (
+          <FaTimesCircle
+            className="remove-filter"
+            onClick={() => setFilterText("")}
+          ></FaTimesCircle>
+        )}
         <input
+          className="form-control"
           type="text"
           placeholder="Filter by any text..."
           value={filterText}
@@ -70,25 +78,25 @@ const Table = observer(({ data, headers }) => {
         <table>
           <thead>
             <tr>
-              {columns.map((key) => (
-                <th key={key} style={{ width: headers[key].width }}>
-                  {headers[key].label}
+              {columns?.map((key) => (
+                <th key={key} style={{ width: headers[key]?.width }}>
+                  {headers[key]?.label}
                 </th>
               ))}
-              {isAdmin && <th>Actions</th>}
+              {isAdmin && <th style={{ width: "15%" }}>Actions</th>}
             </tr>
           </thead>
           <tbody>
-            {paginatedData.map((row) => (
-              <tr key={row.id}>
+            {paginatedData?.map((row) => (
+              <tr key={row?.id}>
                 {columns.map((key) => (
-                  <td key={key} style={{ width: headers[key].width }}>
+                  <td key={key} style={{ width: headers[key]?.width }}>
                     {key === "imageData" ? (
-                      row.imageData ? (
+                      row?.imageData ? (
                         <img
-                          src={row.imageData}
+                          src={row?.imageData}
                           alt="Row Visual"
-                          onClick={() => handleImageClick(row.imageData)}
+                          onClick={() => handleImageClick(row?.imageData)}
                         />
                       ) : (
                         "No Image"
@@ -101,9 +109,18 @@ const Table = observer(({ data, headers }) => {
                   </td>
                 ))}
                 {isAdmin && (
-                  <td>
-                    <button onClick={() => alert(`Action for row: ${row.id}`)}>
-                      Action
+                  <td style={{ width: "15%" }}>
+                    <button
+                      className="edit-button"
+                      onClick={() => alert(`Action for row: ${row.id}`)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="delete-button"
+                      onClick={() => alert(`Action for row: ${row.id}`)}
+                    >
+                      Delete
                     </button>
                   </td>
                 )}
@@ -115,15 +132,27 @@ const Table = observer(({ data, headers }) => {
 
       {/* Pagination Controls */}
       <div className="pagination-controls">
-        <button onClick={goToPreviousPage} disabled={currentPage === 1}>
-          Previous
-        </button>
+        {filteredData?.length > 0 && (
+          <button
+            onClick={goToPreviousPage}
+            disabled={currentPage === 1 || filteredData?.length === 0}
+          >
+            Previous
+          </button>
+        )}
         <span>
-          Page {currentPage} of {totalPages}
+          {filteredData.length === 0
+            ? "No data available"
+            : `Page ${currentPage} of ${totalPages}`}
         </span>
-        <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-          Next
-        </button>
+        {filteredData?.length > 0 && (
+          <button
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages || filteredData?.length === 0}
+          >
+            Next
+          </button>
+        )}
       </div>
 
       {/* Modal for Image */}

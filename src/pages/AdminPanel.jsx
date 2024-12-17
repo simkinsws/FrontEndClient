@@ -5,12 +5,12 @@ import authStore from "../store/authStore";
 
 const AdminPanel = observer(() => {
   const headers = {
-    contactName: { label: "Contact Name", width: "20%" },
-    branchName: { label: "Branch Name", width: "15%" },
-    phoneNumber: { label: "Phone", width: "15%" },
-    description: { label: "Description", width: "20%" },
+    contactName: { label: "Contact Name", width: "10%" },
+    branchName: { label: "Branch Name", width: "10%" },
+    phoneNumber: { label: "Phone", width: "10%" },
+    description: { label: "Description", width: "17%" },
     status: { label: "Status", width: "10%" },
-    imageData: { label: "Image", width: "10%" },
+    imageData: { label: "Image", width: "15%" },
     createdAt: { label: "Issued date", width: "10%" },
   };
 
@@ -32,7 +32,8 @@ const AdminPanel = observer(() => {
       branchName: "string",
       contactName: "string",
       phoneNumber: "string",
-      description: "string",
+      description:
+        "I Have issue with my Mouse so please come and fix it soon as possible thank you !",
       status: "In process",
       imageData: null,
       createdAt: "2024-12-16T21:48:20.1633282",
@@ -44,7 +45,8 @@ const AdminPanel = observer(() => {
       branchName: "Test Branch 1",
       contactName: "Nir sim",
       phoneNumber: "0524070215",
-      description: "xadasda",
+      description:
+        "I Have issue with my Mouse so please come and fix it soon as possible thank you !",
       status: null,
       imageData: null,
       createdAt: "0001-01-01T00:00:00",
@@ -56,7 +58,8 @@ const AdminPanel = observer(() => {
       branchName: null,
       contactName: null,
       phoneNumber: "string",
-      description: null,
+      description:
+        "I Have issue with my Mouse so please come and fix it soon as possible thank you !",
       status: null,
       imageData: null,
       createdAt: "0001-01-01T00:00:00",
@@ -68,7 +71,8 @@ const AdminPanel = observer(() => {
       branchName: "string",
       contactName: "string",
       phoneNumber: "string",
-      description: "string",
+      description:
+        "I Have issue with my Mouse so please come and fix it soon as possible thank you !",
       status: "Open",
       imageData: null,
       createdAt: "2024-12-16T21:53:02.9810445",
