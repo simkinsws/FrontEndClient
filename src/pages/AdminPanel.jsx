@@ -6,10 +6,29 @@ import apiInstance from "../helpers/apiInstance";
 
 const AdminPanel = observer(() => {
   const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   const fetchTickets = async () => {
+  //     try {
+  //       const response = await apiInstance.get("/api/posts/mine");
+  //       console.log(response);
+  //       const sortedData = response?.sort((a, b) => {
+  //         return (
+  //           new Date(b?.createdAt).getTime() - new Date(a?.createdAt).getTime()
+  //         );
+  //       });
+  //       setData(sortedData);
+  //     } catch (e) {
+  //       console.log("cannot fetch user tickets", e);
+  //     }
+  //   };
+
+  //   fetchTickets();
+  // }, []);
+
   useEffect(() => {
-    const fetchTickets = async () => {
+    const fetchAllTickets = async () => {
       try {
-        const response = await apiInstance.get("/api/posts/mine");
+        const response = await apiInstance.get("/api/posts/all");
         console.log(response);
         const sortedData = response?.sort((a, b) => {
           return (
@@ -18,11 +37,11 @@ const AdminPanel = observer(() => {
         });
         setData(sortedData);
       } catch (e) {
-        console.log("cannot fetch user tickets", e);
+        console.log(e);
       }
     };
 
-    fetchTickets();
+    fetchAllTickets();
   }, []);
 
   const headers = {
