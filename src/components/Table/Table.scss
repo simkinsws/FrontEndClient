@@ -43,6 +43,9 @@
       border: 1px solid $primary-dark-gray;
     }
     td {
+      .group-buttons {
+        display: flex;
+      }
       .edit-button,
       .delete-button {
         display: inline-block;

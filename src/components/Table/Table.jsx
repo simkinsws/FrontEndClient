@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import authStore from "../../store/authStore";
 import "./Table.scss";
 import { FaTimesCircle } from "react-icons/fa";
+import EditTicket from "../EditTicketModal/EditTicket";
 
 const Table = observer(({ data, headers }) => {
   const [modalImage, setModalImage] = useState(null);
@@ -110,18 +111,15 @@ const Table = observer(({ data, headers }) => {
                 ))}
                 {isAdmin && (
                   <td style={{ width: "15%" }}>
-                    <button
-                      className="edit-button"
-                      onClick={() => alert(`Action for row: ${row.id}`)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="delete-button"
-                      onClick={() => alert(`Action for row: ${row.id}`)}
-                    >
-                      Delete
-                    </button>
+                    <div className="group-buttons">
+                      <EditTicket data={row} />
+                      <button
+                        className="delete-button"
+                        onClick={() => alert(`Action for row: ${row.id}`)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 )}
               </tr>
