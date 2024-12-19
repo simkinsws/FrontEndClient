@@ -10,6 +10,7 @@ const AdminPanel = observer(() => {
     const fetchAllTickets = async () => {
       try {
         const response = await apiInstance.get("/api/posts/all");
+        console.log("response for testing :", response);
         const sortedData = response?.sort((a, b) => {
           return (
             new Date(b?.createdAt).getTime() - new Date(a?.createdAt).getTime()

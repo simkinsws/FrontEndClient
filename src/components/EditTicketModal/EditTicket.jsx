@@ -34,9 +34,6 @@ const EditTicket = (data) => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
 
-  setError(false);
-  setSuccessMessage(false);
-
   const statusOptions = [
     { value: "open", label: "Open" },
     { value: "inProgress", label: "In Progress" },
@@ -66,14 +63,16 @@ const EditTicket = (data) => {
     }
   };
 
-  const handleShow = () => setShowModal(true);
+  const handleShow = () => {
+    setError(null);
+    setSuccessMessage("");
+    setShowModal(true);
+  };
   const handleClose = () => setShowModal(false);
 
   const handleSave = () => {
     alert("save");
   };
-
-  console.log(data.data);
 
   return (
     <div>
