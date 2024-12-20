@@ -51,6 +51,15 @@ const NavBar = observer(() => {
           >
             Create Ticket
           </NavLink>
+          <NavLink
+            to="/admin/user-registration"
+            end="true"
+            className={({ isActive }) =>
+              isActive ? "active nav-item" : "nav-item"
+            }
+          >
+            Create Ticket
+          </NavLink>
         </div>
         <div>
           <button className="icon-style logout" onClick={logout}>

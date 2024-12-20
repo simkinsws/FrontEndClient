@@ -9,6 +9,7 @@ import CreatePost from "./pages/user/CreatePost/CreatePost";
 import apiInstance from "./helpers/apiInstance";
 import Login from "./pages/Login";
 import UnAuthorized from "./pages/UnAuthorized/UnAuthorized";
+import Register from "./pages/Register/Register";
 // Define AppRoutes as an observer component
 const AppRoutes = observer(() => {
   useEffect(() => {
@@ -45,6 +46,16 @@ const AppRoutes = observer(() => {
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
             <CreatePost />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/user-registration"
+        exact="true"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <Register />
           </ProtectedRoute>
         }
       />

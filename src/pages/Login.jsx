@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"; // For navigation
 import "./styles/Login.scss";
 import authStore from "../store/authStore";
 import ResetPassword from "./resetPassword/ResetPassword";
-
+import { Form } from "react-bootstrap";
 const Login = observer(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +17,7 @@ const Login = observer(() => {
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (authStore?.isAuthenticated) {
@@ -54,8 +55,8 @@ const Login = observer(() => {
 
   return (
     <div className="login-container">
-      <h1 className="title">Login</h1>
       <form onSubmit={handleLogin} className="form">
+        <h1 className="title">Login</h1>
         <div className="inputGroup">
           <label htmlFor="email" className="label">
             Email:
@@ -65,7 +66,7 @@ const Login = observer(() => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="input"
+            className="input form-control"
             required
           />
         </div>
@@ -74,12 +75,19 @@ const Login = observer(() => {
             Password:
           </label>
           <input
-            type="password"
+            type={`${showPassword ? "text" : "password"}`}
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="input"
+            className="input form-control"
             required
+          />
+          <Form.Check
+            type="checkbox"
+            label="Show Password"
+            checked={showPassword}
+            onChange={() => setShowPassword((prev) => !prev)}
+            className="mt-2"
           />
         </div>
         {error && <p className="error">{error}</p>}

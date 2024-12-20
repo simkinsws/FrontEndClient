@@ -9,6 +9,7 @@ const ResetPassword = ({ show, handleClose }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async () => {
     setError(null); // Clear previous errors
@@ -53,10 +54,17 @@ const ResetPassword = ({ show, handleClose }) => {
           <Form.Group className="password-input">
             <Form.Label>New Password</Form.Label>
             <Form.Control
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Enter your new password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <Form.Check
+              type="checkbox"
+              label="Show Password"
+              checked={showPassword}
+              onChange={() => setShowPassword((prev) => !prev)}
+              className="mt-2"
             />
           </Form.Group>
           {error && !success && (
