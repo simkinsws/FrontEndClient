@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { FaCloudUploadAlt, FaTimes } from "react-icons/fa";
-
+import apiInstance from "../../helpers/apiInstance";
 const CustomFileInput = ({ onFileChange }) => {
   return (
     <div className="custom-file-input">
@@ -23,12 +23,15 @@ const CustomFileInput = ({ onFileChange }) => {
   );
 };
 
-const EditTicket = (data) => {
+const EditTicket = ({ data, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    description: data?.data?.description,
-    status: data?.data?.status,
-    image: `${data?.data?.imageMimeType},${data?.data?.imageData}`,
+    description: data?.description || "",
+    status: data?.status || "open",
+    image:
+      data?.imageData !== "null" && data?.imageMimeType !== "null"
+        ? `${data?.imageMimeType},${data?.imageData}`
+        : null,
   });
 
   const [error, setError] = useState(null);
@@ -36,9 +39,9 @@ const EditTicket = (data) => {
 
   const statusOptions = [
     { value: "open", label: "Open" },
-    { value: "inProgress", label: "In Progress" },
+    { value: "in Progress", label: "In Progress" },
     { value: "closed", label: "Closed" },
-    { value: "onHold", label: "On Hold" },
+    { value: "on Hold", label: "On Hold" },
   ];
 
   const handleInputChange = (e) => {
@@ -70,8 +73,26 @@ const EditTicket = (data) => {
   };
   const handleClose = () => setShowModal(false);
 
-  const handleSave = () => {
-    alert("save");
+  const handleSave = async () => {
+    try {
+      const postUpdateDto = {
+        id: data.id,
+        description: formData.description,
+        status: formData.status,
+        imageBase64: formData.image ? formData.image.split(",")[1] : null,
+        imageMimeType: formData.image ? formData.image.split(",")[0] : null,
+      };
+
+      const response = await apiInstance.put(`/api/post/update`, postUpdateDto);
+      onSave(response); // Notify parent to update the data
+      handleClose(); // Close modal
+    } catch (e) {
+      setError(
+        e.response?.data?.message ||
+          e.message ||
+          "An error occurred while updating the post."
+      );
+    }
   };
 
   return (
@@ -126,7 +147,7 @@ const EditTicket = (data) => {
                 </button>
               </div>
             )}
-            {error && !successMessage && (
+            {error && (
               <div className="error">
                 {typeof error === "object"
                   ? Object.values(error).flat().join(", ")
@@ -143,7 +164,7 @@ const EditTicket = (data) => {
         }
         footerButtons={[
           { label: "Close", onClick: handleClose, variant: "secondary" },
-          { label: "Save", onClick: () => handleSave(), variant: "primary" },
+          { label: "Save", onClick: handleSave, variant: "primary" },
         ]}
         size={"lg"}
       />

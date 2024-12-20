@@ -5,11 +5,15 @@ import "./Table.scss";
 import { FaTimesCircle } from "react-icons/fa";
 import EditTicket from "../EditTicketModal/EditTicket";
 
-const Table = observer(({ data, headers }) => {
+const Table = observer(({ data, headers, onPostUpdate }) => {
   const [modalImage, setModalImage] = useState(null);
   const [filterText, setFilterText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
+
+  const handleUpdatePost = (updatedPost) => {
+    onPostUpdate?.(updatedPost);
+  };
 
   const columns = Object.keys(headers);
 
@@ -102,8 +106,12 @@ const Table = observer(({ data, headers }) => {
                       ) : (
                         "No Image"
                       )
-                    ) : key === "createdAt" ? (
-                      formatDate(row[key])
+                    ) : key === "createdAt" ? ( // Check for issuedDate key
+                      formatDate(
+                        new Date(row?.updatedAt) > new Date(row?.createdAt)
+                          ? row?.updatedAt
+                          : row?.createdAt
+                      )
                     ) : (
                       row[key] || "N/A"
                     )}
@@ -112,7 +120,7 @@ const Table = observer(({ data, headers }) => {
                 {isAdmin && (
                   <td style={{ width: "15%" }}>
                     <div className="group-buttons">
-                      <EditTicket data={row} />
+                      <EditTicket data={row} onSave={handleUpdatePost} />
                       <button
                         className="delete-button"
                         onClick={() => alert(`Action for row: ${row.id}`)}
