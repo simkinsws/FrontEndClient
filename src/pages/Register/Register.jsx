@@ -15,6 +15,7 @@ const Register = () => {
     setSuccess("");
     try {
       setIsLoading(true);
+      // eslint-disable-next-line no-unused-vars
       const response = await apiInstance.post("/api/admin/registerUser", {
         email,
         password,
