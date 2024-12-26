@@ -30,6 +30,9 @@ const AppRoutes = observer(() => {
 
   return (
     <Routes>
+      {/* Redirect "/" to "/login" */}
+      <Route path="/" element={<Login />} />
+
       <Route path="/login" element={<Login />} />
 
       <Route

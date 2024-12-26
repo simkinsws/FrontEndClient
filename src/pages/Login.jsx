@@ -19,12 +19,47 @@ const Login = observer(() => {
   const handleCloseModal = () => setShowModal(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  // Keep track of the redirection path
+  const [isAuthInitialized, setIsAuthInitialized] = useState(false);
+  const [redirectPath, setRedirectPath] = useState(null);
+  const [isLoadingPage, setIsLoadingPage] = useState(true); // Track page loading state
+
   useEffect(() => {
+    // Check if the user is authenticated
     if (authStore?.isAuthenticated) {
-      const redirectPath = authStore?.userRole === "Admin" ? "/admin" : "/user";
+      // Fetch user role if authenticated
+      const fetchRole = async () => {
+        try {
+          const roleResponse = await apiInstance.get("/api/users/userRole");
+          authStore.setUserRole(roleResponse);
+          setRedirectPath(roleResponse === "Admin" ? "/admin" : "/user");
+          setIsAuthInitialized(true); // Set initialization flag when role is fetched
+          setIsLoadingPage(false); // Stop loading page
+        } catch (error) {
+          setIsAuthInitialized(true); // Set flag even if there is an error
+          setIsLoadingPage(false); // Stop loading page
+        }
+      };
+      fetchRole();
+    } else {
+      setIsAuthInitialized(true); // If not authenticated, skip fetching role
+      setIsLoadingPage(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isAuthInitialized && redirectPath) {
       navigate(redirectPath, { replace: true });
     }
-  }, [navigate]);
+  }, [isAuthInitialized, redirectPath, navigate]);
+
+  if (isLoadingPage) {
+    return (
+      <div className="loading">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -39,10 +74,10 @@ const Login = observer(() => {
 
         const roleResponse = await apiInstance.get("/api/users/userRole");
         authStore.setUserRole(roleResponse);
-        setIsLoading(false);
 
         // Redirect based on userRole
-        navigate(roleResponse === "Admin" ? "/admin" : "/user");
+        setRedirectPath(roleResponse === "Admin" ? "/admin" : "/user");
+        setIsLoading(false);
       } else {
         setIsLoading(false);
         setError("Login failed. Please check your credentials.");

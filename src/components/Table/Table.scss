@@ -7,8 +7,12 @@
   -webkit-overflow-scrolling: touch;
   @media screen and (max-width: 992px) {
     max-width: 100%;
+    margin-top: 20px;
   }
   .table-wrapper {
+    &.no-pagination {
+      margin-bottom: 20px;
+    }
     overflow-x: auto;
     @media screen and (max-width: 768px) {
       padding: 0px 20px;
@@ -182,7 +186,7 @@
     background: inherit;
     margin-bottom: 20px;
     @media screen and (max-width: 768px) {
-      padding: 0px 20px;
+      padding-left: 20px;
     }
     .form-control {
       background: inherit;

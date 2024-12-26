@@ -45,13 +45,13 @@ const AdminPanel = observer(() => {
   };
 
   const headers = {
-    contactName: { label: "Contact Name", width: "10%" },
+    contactName: { label: "Contact Name", width: "13%" },
     branchName: { label: "Branch Name", width: "10%" },
     phoneNumber: { label: "Phone", width: "10%" },
     description: { label: "Description", width: "17%" },
     status: { label: "Status", width: "10%" },
     imageData: { label: "Image", width: "15%" },
-    createdAt: { label: "Issued/Updated date", width: "10%" },
+    createdAt: { label: "Updated date", width: "10%" },
   };
 
   return (
