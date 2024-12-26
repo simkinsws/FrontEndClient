@@ -28,34 +28,115 @@
     &::-webkit-scrollbar-thumb:hover {
       background-color: #555;
     }
+
+    @media (max-width: 768px) {
+      &::-webkit-scrollbar {
+        width: 0px; /* Hide scrollbar width */
+        height: 0px; /* Hide scrollbar height */
+        background-color: transparent; /* Ensure transparency */
+      }
+
+      /* Ensure scroll functionality is retained */
+      overflow-y: scroll; /* Enable vertical scrolling */
+      -ms-overflow-style: none; /* Hide scrollbar in IE */
+      scrollbar-width: none; /* Hide scrollbar in Firefox */
+    }
   }
   table {
-    min-width: 1200px;
+    min-width: 1400px;
     width: 100%;
     max-width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    thead {
+      background: #0043c0;
+      color: white;
+      & tr th {
+        vertical-align: middle;
+        padding: 15px 0px;
+      }
+    }
+    & tr td:first-child,
+    & tr th:first-child {
+      border-left: 1px solid #e6eff5;
+    }
+    & tr td:last-child,
+    & tr th:last-child {
+      border-right: 1px solid #e6eff5;
+    }
+    & tr:first-child td {
+      border-top: 1px solid #e6eff5;
+      &:first-child {
+        border-top-left-radius: 10px;
+      }
+      &:last-child {
+        border-top-right-radius: 10px;
+      }
+    }
+    & tr:first-child th {
+      border-top: 1px solid #e6eff5;
+      &:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+      &:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+    }
+    & tbody tr:last-child td:last-child {
+      border-bottom-right-radius: 10px;
+    }
+    & tbody tr:last-child td:first-child {
+      border-bottom-left-radius: 10px;
+    }
+    tbody {
+      background: white;
+    }
+    tbody:before {
+      line-height: 15px;
+      content: "_";
+      color: #b1b1b1;
+      display: block;
+      background-color: #b1b1b1;
+    }
     th,
     td {
       white-space: break-spaces;
-      vertical-align: top;
       text-align: left;
       padding: 7px;
       font-size: 16px;
-      border: 1px solid $primary-dark-gray;
+      text-align: center;
+      border-bottom: 1px solid #e6eff5;
     }
     td {
+      font-size: 18px;
+      color: #B1B1B1;
+      font-weight: 500;
+      @media screen and (max-width: 768px) {
+        font-size: 16px;
+      }
+      &.description-style {
+        text-align: left;
+        div {
+          margin: auto;
+          display: flex;
+          width: 70%;
+        }
+      }
       .group-buttons {
         display: flex;
+        justify-content: center;
       }
       .edit-button,
       .delete-button {
         display: inline-block;
         padding: 7px;
         font-size: 18px;
-        background-color: $primary-dark-background;
+        background-color: #222222;
         color: $primary-white;
         border: 1px solid $primary-darker-text;
-        border-radius: 4px;
+        border-radius: 100px;
         cursor: pointer;
         margin-right: 5px;
         transition: background-color 0.3s ease;
@@ -63,8 +144,18 @@
           background-color: $accent-dark-gray;
         }
       }
-      img {
-        max-width: 100%;
+      .image-wrapper {
+        overflow: hidden;
+        width: 75px;
+        height: 75px;
+        margin: auto;
+        img {
+          border-radius: 100%;
+          width: 75px;
+          height: 100%;
+          object-fit: cover;
+          border: 1px solid #b1b1b1;
+        }
       }
     }
   }
@@ -81,24 +172,38 @@
     }
   }
   .table-header {
-    width: 100%;
+    width: 300px;
     display: flex;
-    padding: 20px;
     position: relative;
     border-radius: 10px 10px 0px 0px;
-    background: $primary-dark-background;
+    background: inherit;
+    margin-bottom: 20px;
+    .form-control {
+      background: inherit;
+      height: 50px;
+      padding-right: 40px;
+      border: 2px solid white;
+      font-size: 18px;
+      &:focus {
+        outline: unset;
+        border-color: white;
+        box-shadow: unset;
+      }
+    }
     .remove-filter {
       font-size: 20px;
-      color: $primary-dark-background;
+      color: $primary-white;
       position: absolute;
-      right: 30px;
-      top: 28px;
+      cursor: pointer;
+      right: 10px;
+      top: 15px;
     }
   }
   .pagination-controls {
     width: 100%;
     display: flex;
     padding: 20px;
+    margin-top: 20px;
     border-radius: 0px 0px 10px 10px;
     background: $primary-dark-background;
     margin-bottom: 20px;

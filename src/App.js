@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "./App.css";
+import "./App.scss";
 import AppRoutes from "./AppRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
 import authStore from "./store/authStore";

@@ -27,7 +27,7 @@ const EditTicket = ({ data, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     description: data?.description || "",
-    status: data?.status || "open",
+    status: data?.status || "Open",
     image:
       data?.imageData !== "null" && data?.imageMimeType !== "null"
         ? `${data?.imageMimeType},${data?.imageData}`
@@ -38,10 +38,10 @@ const EditTicket = ({ data, onSave }) => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const statusOptions = [
-    { value: "open", label: "Open" },
-    { value: "in Progress", label: "In Progress" },
-    { value: "closed", label: "Closed" },
-    { value: "on Hold", label: "On Hold" },
+    { value: "Open", label: "Open" },
+    { value: "In Progress", label: "In Progress" },
+    { value: "Closed", label: "Closed" },
+    { value: "On Hold", label: "On Hold" },
   ];
 
   const handleInputChange = (e) => {

@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Open+Sans:wght@300&display=swap");
+@import "./assests/_new-variables.scss";
+.App {
+  text-align: center;
+  text-align: center;
+  margin: auto;
+  max-width: 1920px;
+  display: flex;
+  flex-direction: column;
+  background-color: $site-background;
+  font-family: "Assistant", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
