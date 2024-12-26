@@ -10,6 +10,9 @@
   }
   .table-wrapper {
     overflow-x: auto;
+    @media screen and (max-width: 768px) {
+      padding: 0px 20px;
+    }
     &::-webkit-scrollbar {
       width: 10px;
       height: 10px;
@@ -111,7 +114,7 @@
     }
     td {
       font-size: 18px;
-      color: #B1B1B1;
+      color: #b1b1b1;
       font-weight: 500;
       @media screen and (max-width: 768px) {
         font-size: 16px;
@@ -178,6 +181,9 @@
     border-radius: 10px 10px 0px 0px;
     background: inherit;
     margin-bottom: 20px;
+    @media screen and (max-width: 768px) {
+      padding: 0px 20px;
+    }
     .form-control {
       background: inherit;
       height: 50px;
