@@ -10,7 +10,6 @@ import { FaBars, FaTimes } from "react-icons/fa";
 const NavBar = observer(() => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  console.log("Navbar userRole:", authStore?.userRole);
 
   const logout = () => {
     authStore?.logout();
@@ -51,15 +50,17 @@ const NavBar = observer(() => {
           >
             Create Ticket
           </NavLink>
-          <NavLink
-            to="/admin/user-registration"
-            end="true"
-            className={({ isActive }) =>
-              isActive ? "active nav-item" : "nav-item"
-            }
-          >
-            Create Ticket
-          </NavLink>
+          {authStore?.userRole === "Admin" && (
+            <NavLink
+              to="/admin/user-registration"
+              end="true"
+              className={({ isActive }) =>
+                isActive ? "active nav-item" : "nav-item"
+              }
+            >
+              Create User
+            </NavLink>
+          )}
         </div>
         <div>
           <button className="icon-style logout" onClick={logout}>
@@ -110,6 +111,18 @@ const NavBar = observer(() => {
             >
               Create Ticket
             </NavLink>
+            {authStore?.userRole === "Admin" && (
+              <NavLink
+                to="/admin/user-registration"
+                end="true"
+                className={({ isActive }) =>
+                  isActive ? "active nav-item" : "nav-item"
+                }
+                onClick={toggleMobileMenu}
+              >
+                Create User
+              </NavLink>
+            )}
           </div>
         </div>
       </div>
