@@ -4,7 +4,7 @@ import AppRoutes from "./AppRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
 import authStore from "./store/authStore";
 import NavBar from "./components/NavBar/NavBar";
-
+import TopNav from "./components/TopNav/TopNav";
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,7 +21,10 @@ function App() {
   return (
     <div className="App">
       {location.pathname !== "/login" && <NavBar></NavBar>}
-      <AppRoutes></AppRoutes>
+      <div className="middle">
+        <TopNav />
+        <AppRoutes></AppRoutes>
+      </div>
     </div>
   );
 }

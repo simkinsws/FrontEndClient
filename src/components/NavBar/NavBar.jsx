@@ -6,7 +6,7 @@ import "./NavBar.scss";
 import { MdComputer } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { FaBars, FaTimes } from "react-icons/fa";
-
+import { BiHome } from "react-icons/bi";
 const NavBar = observer(() => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -23,11 +23,14 @@ const NavBar = observer(() => {
   return (
     <>
       <div className="navbar-desktop-container">
-        <div className="icon-style">
-          <MdComputer></MdComputer>
+        <div className="logo-part">
+          <div className="icon-style">
+            <MdComputer></MdComputer>
+          </div>
+          Logo Here
         </div>
 
-        <div>
+        <div className="navbar-items">
           <NavLink
             to={`${authStore?.userRole === "Admin" ? "/admin" : "/user"}`}
             end="true"
@@ -35,7 +38,10 @@ const NavBar = observer(() => {
               isActive ? "active nav-item" : "nav-item"
             }
           >
-            {authStore?.userRole === "Admin" ? "Admin Panel" : "User Panel"}
+            <BiHome></BiHome>
+            <div className="text">
+              {authStore?.userRole === "Admin" ? "Admin Panel" : "User Panel"}
+            </div>
           </NavLink>
           <NavLink
             to={`${
@@ -48,7 +54,8 @@ const NavBar = observer(() => {
               isActive ? "active nav-item" : "nav-item"
             }
           >
-            Create Ticket
+            <BiHome></BiHome>
+            <div className="text">Create Ticket</div>
           </NavLink>
           {authStore?.userRole === "Admin" && (
             <NavLink
@@ -58,15 +65,16 @@ const NavBar = observer(() => {
                 isActive ? "active nav-item" : "nav-item"
               }
             >
+              <BiHome></BiHome>
               Create User
             </NavLink>
           )}
         </div>
-        <div>
+        {/* <div>
           <button className="icon-style logout" onClick={logout}>
             <BiLogOut></BiLogOut>
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div className="navbar-mobile-container">
@@ -116,7 +124,7 @@ const NavBar = observer(() => {
                 to="/admin/user-registration"
                 end="true"
                 className={({ isActive }) =>
-                  isActive ? "active nav-item" : "nav-item"
+                  isActive ? "active menu-item" : "menu-item"
                 }
                 onClick={toggleMobileMenu}
               >

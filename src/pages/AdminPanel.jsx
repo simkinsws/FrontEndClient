@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import Table from "../components/Table/Table";
 import apiInstance from "../helpers/apiInstance";
+import Card from "../components/Card/Card";
+import "./AdminPanel.scss";
 
 const AdminPanel = observer(() => {
   const [data, setData] = useState([]);
@@ -56,6 +58,36 @@ const AdminPanel = observer(() => {
 
   return (
     <div>
+      <div className="cards-list">
+        <Card
+          icon=""
+          background="#4D84F0"
+          color="#ffffff"
+          title="Total Tickets"
+          count="22"
+        />
+        <Card
+          icon=""
+          background="#41CB91"
+          color="#ffffff"
+          title="Open Tickets"
+          count="22"
+        />
+        <Card
+          icon=""
+          background="#EBB426"
+          color="#ffffff"
+          title="In Progress Tickets"
+          count="22"
+        />
+        <Card
+          icon=""
+          background="#DC6E4B"
+          color="#ffffff"
+          title="Closed Tickets"
+          count="22"
+        />
+      </div>
       <Table
         onPostUpdate={handlePostUpdate}
         headers={headers}

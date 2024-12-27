@@ -6,10 +6,16 @@
   margin: auto;
   max-width: 1920px;
   display: flex;
-  flex-direction: column;
-  background-color: $site-background;
+  flex-direction: row;
+  background-color: white;
   font-family: "Assistant", serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+  .middle {
+    background-color: $site-background;
+  }
 }

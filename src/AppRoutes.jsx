@@ -10,7 +10,6 @@ import apiInstance from "./helpers/apiInstance";
 import Login from "./pages/Login";
 import UnAuthorized from "./pages/UnAuthorized/UnAuthorized";
 import Register from "./pages/Register/Register";
-import CardsTable from "./components/CardsTable/CardsTable";
 // Define AppRoutes as an observer component
 const AppRoutes = observer(() => {
   useEffect(() => {
@@ -60,16 +59,6 @@ const AppRoutes = observer(() => {
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
             <Register />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/admin/card-table"
-        exact="true"
-        element={
-          <ProtectedRoute allowedRoles={["Admin"]}>
-            <CardsTable />
           </ProtectedRoute>
         }
       />

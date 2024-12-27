@@ -4,53 +4,101 @@
   @media screen and (max-width: 768px) {
     display: none;
   }
+  min-height: 100vh;
+  max-width: 300px;
+  width: 250px;
+  height: 100%;
   display: flex;
-  justify-content: space-between;
   margin-bottom: 30px;
-  align-items: center;
+  flex-direction: column;
   height: 50px;
-  padding: 10px 20px;
-  background: $primary-dark-background; /* Dark background */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
-  position: sticky;
-  top: 0;
+  padding: 0px;
+  border-right: 1px solid #e6eff5;
+  background: white;
+
   z-index: 1000;
+  .logo-part {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    font-weight: 600;
+    height: 80px;
+    border-bottom: 1px solid #e6eff5;
+    margin-bottom: 50px;
+    .icon-style {
+      font-size: 50px;
+      padding: 0 10px;
+      background: unset;
+      border: 0;
+      color: black; /* Light text color for icons */
 
-  .icon-style {
-    font-size: 30px;
-    padding: 0 10px;
-    background: unset;
-    border: 0;
-    color: $primary-light-text; /* Light text color for icons */
-
-    &.logout {
-      cursor: pointer;
-      &:hover {
-        color: $accent-cyan; /* Cyan accent on hover */
+      &.logout {
+        cursor: pointer;
+        &:hover {
+          color: $accent-cyan; /* Cyan accent on hover */
+        }
       }
-    }
 
-    &.active {
-      color: $primary-white; /* Light color for active icon */
+      &.active {
+        color: $primary-white; /* Light color for active icon */
+      }
     }
   }
 
-  .nav-item {
-    font-size: 18px;
-    text-decoration: none;
-    padding: 0 10px;
-    color: $primary-darker-text; /* Darker text color for regular items */
-    transition: color $transition-default;
+  .navbar-items {
+    display: flex;
+    flex-direction: column;
+    .nav-item {
+      text-decoration: none;
+      padding: 0 10px;
+      color: #b1b1b1; /* Darker text color for regular items */
+      transition: color $transition-default;
+      position: relative;
+      color: #b1b1b1;
+      padding-left: 30px;
+      padding-right: 30px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      svg {
+        font-size: 30px;
+        margin-left: 25px;
+        margin-right: 10px;
+      }
+      &:hover {
+        color: $accent-cyan;
+        &:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%); // Center vertically
+          width: 6px; // Border width
+          height: 80%; // Border height relative to the element
+          background-color: $accent-cyan; // Border color
+          border-radius: 0 8px 8px 0;
+        }
+      }
 
-    &:hover {
-      color: $accent-cyan; /* Cyan for hover effect */
-    }
-
-    &.active {
-      color: $primary-white; /* White for active text */
-      background-color: $primary-dark-gray; /* Dark background for active item */
-      padding: 5px 10px; /* Add some padding for the active item */
-      border-radius: 5px; /* Rounded corners */
+      &.active {
+        position: relative;
+        color: #0043c0;
+        font-weight: 600;
+        &:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%); // Center vertically
+          width: 6px; // Border width
+          height: 80%; // Border height relative to the element
+          background-color: #0043c0; // Border color
+          border-radius: 0 8px 8px 0;
+        }
+      }
     }
   }
 }
