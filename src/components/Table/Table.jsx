@@ -4,9 +4,18 @@ import authStore from "../../store/authStore";
 import "./Table.scss";
 import { FaTimesCircle } from "react-icons/fa";
 import EditTicket from "../EditTicketModal/EditTicket";
-
+import dots from "../../assests/images/dots.svg";
 const Table = observer(
-  ({ data, headers, onPostUpdate, pagination = false, filter = false }) => {
+  ({
+    data,
+    headers,
+    onPostUpdate,
+    pagination = false,
+    filter = false,
+    actions = false,
+    panelPage = true,
+    setOpenSideDetailsBar,
+  }) => {
     const [modalImage, setModalImage] = useState(null);
     const [filterText, setFilterText] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +30,7 @@ const Table = observer(
     // Status styles
     const statusStyles = {
       Open: {
-        color: "#56e116",
+        color: "#2a4a1b",
         backgroundColor: "#e5ffd9",
         border: "1px solid #56e116",
         opacity: "0.8",
@@ -163,7 +172,10 @@ const Table = observer(
                     {headers[key]?.label}
                   </th>
                 ))}
-                {isAdmin && <th style={{ width: "20%" }}>Actions</th>}
+                {isAdmin && actions && (
+                  <th style={{ width: "20%" }}>Actions</th>
+                )}
+                {panelPage && <th style={{ width: "5%" }}></th>}
               </tr>
             </thead>
             <tbody>
@@ -180,7 +192,17 @@ const Table = observer(
                       {renderTableCell(key, row)}
                     </td>
                   ))}
-                  {isAdmin && (
+                  {panelPage && (
+                    <td style={{ width: "5%" }}>
+                      <img
+                        onClick={() => setOpenSideDetailsBar(true)} // Trigger state change to open sidebar
+                        src={dots}
+                        className="panel-page-side"
+                        alt="dots"
+                      />
+                    </td>
+                  )}
+                  {isAdmin && actions && (
                     <td style={{ width: "15%" }}>
                       <div className="group-buttons">
                         <EditTicket data={row} onSave={handleUpdatePost} />
@@ -198,7 +220,6 @@ const Table = observer(
             </tbody>
           </table>
         </div>
-
         {/* Pagination Controls */}
         {pagination && (
           <div className="pagination-controls">

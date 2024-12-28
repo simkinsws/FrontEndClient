@@ -1,7 +1,23 @@
+.admin-panel-container {
+  margin-top: 30px;
+  display: flex;
+  .cards-and-table {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .cards-list {
   display: flex;
   justify-content: space-between;
   margin: auto;
   max-width: 95%;
   margin-bottom: 40px;
+  @media screen and (max-width: 992px) {
+    max-width: 100%;
+    margin: unset;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: unset;
+    flex-wrap: wrap;
+  }
 }

@@ -103,9 +103,9 @@
     tbody:before {
       line-height: 15px;
       content: "_";
-      color: #b1b1b1;
+      color: #F3F1F6;
       display: block;
-      background-color: #b1b1b1;
+      background-color: #F3F1F6;
     }
     th,
     td {
@@ -122,6 +122,12 @@
       font-weight: 500;
       @media screen and (max-width: 768px) {
         font-size: 16px;
+      }
+      .panel-page-side {
+        background: white;
+        border: unset;
+        outline: unset;
+        color: #B1B1B1;
       }
       &.description-style {
         text-align: left;

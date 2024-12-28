@@ -22,7 +22,7 @@ function App() {
     <div className="App">
       {location.pathname !== "/login" && <NavBar></NavBar>}
       <div className="middle">
-        <TopNav />
+        {location.pathname !== "/login" && <TopNav />}
         <AppRoutes></AppRoutes>
       </div>
     </div>

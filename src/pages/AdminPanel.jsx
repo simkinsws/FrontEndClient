@@ -4,10 +4,18 @@ import Table from "../components/Table/Table";
 import apiInstance from "../helpers/apiInstance";
 import Card from "../components/Card/Card";
 import "./AdminPanel.scss";
+import openTicketsIcon from "../assests/images/open-tickets-icon.svg";
+import totalTickets from "../assests/images/total-tickets-icon.svg";
+import inProgressTickets from "../assests/images/in-progress-icon.svg";
+import closedTickets from "../assests/images/closed-tickets-icon.svg";
+import SideDetailsBar from "../components/SideDetailsBar/SideDetailsBar";
 
 const AdminPanel = observer(() => {
   const [data, setData] = useState([]);
-
+  const [openSideDetailsBar, setOpenSideDetailsBar] = useState(false); // Lifted state
+  const closeSidebar = () => {
+    setOpenSideDetailsBar(false);
+  };
   useEffect(() => {
     const fetchAllTickets = async () => {
       try {
@@ -57,42 +65,48 @@ const AdminPanel = observer(() => {
   };
 
   return (
-    <div>
-      <div className="cards-list">
-        <Card
-          icon=""
-          background="#4D84F0"
-          color="#ffffff"
-          title="Total Tickets"
-          count="22"
-        />
-        <Card
-          icon=""
-          background="#41CB91"
-          color="#ffffff"
-          title="Open Tickets"
-          count="22"
-        />
-        <Card
-          icon=""
-          background="#EBB426"
-          color="#ffffff"
-          title="In Progress Tickets"
-          count="22"
-        />
-        <Card
-          icon=""
-          background="#DC6E4B"
-          color="#ffffff"
-          title="Closed Tickets"
-          count="22"
-        />
+    <div className="admin-panel-container">
+      <div className="cards-and-table">
+        <div className="cards-list">
+          <Card
+            icon={totalTickets}
+            background="#4D84F0"
+            color="#ffffff"
+            title="Total Tickets"
+            count="22"
+          />
+          <Card
+            icon={openTicketsIcon}
+            background="#41CB91"
+            color="#ffffff"
+            title="Open Tickets"
+            count="22"
+          />
+          <Card
+            icon={inProgressTickets}
+            background="#EBB426"
+            color="#ffffff"
+            title="In Progress Tickets"
+            count="22"
+          />
+          <Card
+            icon={closedTickets}
+            background="#DC6E4B"
+            color="#ffffff"
+            title="Closed Tickets"
+            count="22"
+          />
+        </div>
+        <Table
+          onPostUpdate={handlePostUpdate}
+          headers={headers}
+          data={data}
+          setOpenSideDetailsBar={setOpenSideDetailsBar}
+        ></Table>
       </div>
-      <Table
-        onPostUpdate={handlePostUpdate}
-        headers={headers}
-        data={data}
-      ></Table>
+      <div className="side-bar-details">
+        {openSideDetailsBar && <SideDetailsBar closeSidebar={closeSidebar} />}
+      </div>
     </div>
   );
 });

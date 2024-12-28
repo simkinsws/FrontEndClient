@@ -1,18 +1,22 @@
 .card-container {
-  width: 200px;
+  width: 220px;
   display: flex;
-  height: 174px;
+  height: 180px;
   flex-direction: column;
   align-items: flex-start;
   border-radius: 16px;
   .icon {
   }
   .title {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
+    padding-left: 20px;
+    line-height: 22px;
   }
   .count {
-    font-size: 34px;
+    font-size: 38px;
     font-weight: 600;
+    padding-left: 20px;
+    line-height: 50px;
   }
 }

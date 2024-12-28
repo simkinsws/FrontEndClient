@@ -5,13 +5,12 @@
     display: none;
   }
   min-height: 100vh;
-  max-width: 300px;
-  width: 250px;
-  height: 100%;
+  max-width: 250px;
+  width: 230px;
+  min-width: 230px;
   display: flex;
   margin-bottom: 30px;
   flex-direction: column;
-  height: 50px;
   padding: 0px;
   border-right: 1px solid #e6eff5;
   background: white;
@@ -20,7 +19,7 @@
   .logo-part {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     font-size: 35px;
     font-weight: 600;
     height: 80px;
@@ -63,6 +62,8 @@
       align-items: center;
       font-size: 18px;
       font-weight: 600;
+      justify-content: flex-start;
+      gap: 15px;
       svg {
         font-size: 30px;
         margin-left: 25px;

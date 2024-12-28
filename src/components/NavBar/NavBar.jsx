@@ -3,10 +3,15 @@ import authStore from "../../store/authStore";
 import { observer } from "mobx-react-lite";
 import { useNavigate, NavLink } from "react-router-dom";
 import "./NavBar.scss";
-import { MdComputer } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { BiHome } from "react-icons/bi";
+import logo from "../../assests/images/logo-tickets.svg";
+import panel from "../../assests/images/panel.svg";
+import panelActive from "../../assests/images/panel-active.svg";
+import newTicket from "../../assests/images/new-ticket.svg";
+import newTicketActive from "../../assests/images/new-ticket-active.svg";
+import newUser from "../../assests/images/my-tickets.svg";
+import newUserActive from "../../assests/images/my-tickets-active.svg";
 const NavBar = observer(() => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -25,9 +30,9 @@ const NavBar = observer(() => {
       <div className="navbar-desktop-container">
         <div className="logo-part">
           <div className="icon-style">
-            <MdComputer></MdComputer>
+            <img src={logo} alt="logo" />
           </div>
-          Logo Here
+          Tickets
         </div>
 
         <div className="navbar-items">
@@ -38,10 +43,19 @@ const NavBar = observer(() => {
               isActive ? "active nav-item" : "nav-item"
             }
           >
-            <BiHome></BiHome>
-            <div className="text">
-              {authStore?.userRole === "Admin" ? "Admin Panel" : "User Panel"}
-            </div>
+            {({ isActive }) => (
+              <>
+                <img
+                  src={isActive ? panelActive : panel} // Change image based on isActive
+                  alt="panel"
+                />
+                <div className="text">
+                  {authStore?.userRole === "Admin"
+                    ? "Admin Panel"
+                    : "User Panel"}
+                </div>
+              </>
+            )}
           </NavLink>
           <NavLink
             to={`${
@@ -54,8 +68,15 @@ const NavBar = observer(() => {
               isActive ? "active nav-item" : "nav-item"
             }
           >
-            <BiHome></BiHome>
-            <div className="text">Create Ticket</div>
+            {({ isActive }) => (
+              <>
+                <img
+                  src={isActive ? newTicketActive : newTicket} // Change image based on isActive
+                  alt="new ticket"
+                />
+                <div className="text">Create Ticket</div>
+              </>
+            )}
           </NavLink>
           {authStore?.userRole === "Admin" && (
             <NavLink
@@ -65,8 +86,15 @@ const NavBar = observer(() => {
                 isActive ? "active nav-item" : "nav-item"
               }
             >
-              <BiHome></BiHome>
-              Create User
+              {({ isActive }) => (
+                <>
+                  <img
+                    src={isActive ? newUserActive : newUser} // Change image based on isActive
+                    alt="registration"
+                  />
+                  <div className="text">Create User</div>
+                </>
+              )}
             </NavLink>
           )}
         </div>
