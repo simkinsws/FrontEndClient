@@ -72,28 +72,28 @@ const AdminPanel = observer(() => {
             icon={totalTickets}
             background="#4D84F0"
             color="#ffffff"
-            title="Total Tickets"
+            title="Total tickets"
             count="22"
           />
           <Card
             icon={openTicketsIcon}
             background="#41CB91"
             color="#ffffff"
-            title="Open Tickets"
+            title="Opened tickets"
             count="22"
           />
           <Card
             icon={inProgressTickets}
             background="#EBB426"
             color="#ffffff"
-            title="In Progress Tickets"
+            title="In progress"
             count="22"
           />
           <Card
             icon={closedTickets}
             background="#DC6E4B"
             color="#ffffff"
-            title="Closed Tickets"
+            title="Closed tickets"
             count="22"
           />
         </div>

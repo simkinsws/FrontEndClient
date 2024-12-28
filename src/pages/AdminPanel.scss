@@ -1,6 +1,5 @@
 .admin-panel-container {
   margin-top: 30px;
-  display: flex;
   .cards-and-table {
     display: flex;
     flex-direction: column;
@@ -8,16 +7,23 @@
 }
 .cards-list {
   display: flex;
-  justify-content: space-between;
-  margin: auto;
-  max-width: 95%;
+  gap: 50px;
+  justify-content: flex-start;
+  margin-left: 30px;
+  max-width: 100%;
   margin-bottom: 40px;
   @media screen and (max-width: 992px) {
     max-width: 100%;
     margin: unset;
     padding: 0px 20px;
     display: flex;
-    justify-content: unset;
+    row-gap: 20px;
     flex-wrap: wrap;
+  }
+  @media screen and (max-width: 767px) {
+    gap: 20px;
+  }
+  @media screen and (max-width: 576px) {
+    gap: 10px;
   }
 }

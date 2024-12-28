@@ -5,18 +5,42 @@
   flex-direction: column;
   align-items: flex-start;
   border-radius: 16px;
+  @media screen and (max-width: 576px) {
+    height: 140px;
+    width: 170px;
+  }
+  @media screen and (max-width: 393px) {
+    width: 160px;
+    height: 130px;
+  }
   .icon {
+    @media screen and (max-width: 576px) {
+      width: 60px;
+      height: 60px;
+      img {
+        width: 70px;
+        height: 70px;
+      }
+    }
   }
   .title {
     font-size: 22px;
     font-weight: 600;
     padding-left: 20px;
     line-height: 22px;
+    @media screen and (max-width: 576px) {
+      font-size: 18px;
+      line-height: 19px;
+    }
   }
   .count {
     font-size: 38px;
     font-weight: 600;
     padding-left: 20px;
     line-height: 50px;
+    @media screen and (max-width: 576px) {
+      font-size: 32px;
+      line-height: 38px;
+    }
   }
 }
